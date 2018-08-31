@@ -15,7 +15,7 @@ RSpec.describe StaticPagesController, type: :controller do
     it "responds successfully" do
       get :home
       expect(response).to be_success
-      assert_select "title", "Home | Ruby on Rails Tutorial Sample App"
+      assert_select "title", "Ruby on Rails Tutorial Sample App"
     end
   end
   
