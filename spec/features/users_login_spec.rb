@@ -20,7 +20,29 @@ RSpec.feature "UsersLogin", type: :feature do
     expect(page).to have_content @user.name
     expect(page).to have_content("Log out")    
     click_link "Log out"
-    expect(page).to have_content("Welcome to the Sample App")     
+    expect(page).to have_content("Welcome to the Sample App")
+    # 2番目のウィンドウでログアウトをクリックするユーザーをシミュレートする    
+    page.driver.submit :delete, "/logout", {}
+    expect(page).to have_content("Log in")    
   end
   
+  scenario "user logs in with remembering" do
+    @user = create(:user)
+    visit login_path
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: 'password'
+    check "session_remember_me"
+    click_button "Log in"
+    expect(Capybara.current_session.driver.request.cookies.[]('remember_token')).not_to eq(nil)
+  end
+
+  scenario "user logs in without remembering" do
+    @user = create(:user)
+    visit login_path
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: 'password'
+    uncheck "session_remember_me"
+    click_button "Log in"
+    expect(Capybara.current_session.driver.request.cookies.[]('remember_token')).to eq(nil)
+  end
 end
