@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.feature "UsersSignups", type: :feature do
-  scenario "user can't signs up with invalid information" do
+RSpec.feature "UsersSignup", type: :feature do
+  scenario "user can't sign up with invalid information" do
     @user_count = User.count
     visit signup_path
     fill_in "Name", with: ""
@@ -12,7 +12,7 @@ RSpec.feature "UsersSignups", type: :feature do
     expect(User.count).to eq @user_count
   end
   
-  scenario "user can signs up with valid information" do
+  scenario "user can sign up with valid information" do
     @user_count = User.count
     visit signup_path
     fill_in "Name", with: "Example User"
@@ -22,5 +22,6 @@ RSpec.feature "UsersSignups", type: :feature do
     click_button "Create my account"
     expect(User.count).to eq @user_count + 1
     expect(page).to have_content("Welcome to the Sample App!")
+    expect(page).to have_content("Log out")    
   end    
 end
