@@ -74,7 +74,7 @@ RSpec.describe User, type: :model do
   end
   
   it "returns false when authenticated? method called with user with nil digest" do
-    expect(@user.authenticated?('')).to be false
+    expect(@user.authenticated?(:remember, '')).to be false
   end
   
 end
