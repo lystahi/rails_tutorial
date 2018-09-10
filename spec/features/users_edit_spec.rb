@@ -18,7 +18,7 @@ RSpec.feature "UsersEdit", type: :feature do
     fill_in "Name", with: ""
     fill_in "Email", with: "foo@invalid"
     fill_in "Password", with: "foo"
-    fill_in "Password confirmation", with: "bar"
+    fill_in "Confirmation", with: "bar"
     click_button("Save changes")
     expect(page).to have_content("Update your profile")
   end
@@ -57,7 +57,7 @@ RSpec.feature "UsersEdit", type: :feature do
     check "session_remember_me"
     click_button "Log in"    
     visit edit_user_path(@other_user)
-    expect(page).to have_content("Welcome to the Sample App")
+    expect(page).to have_content("The Ruby on Rails Tutorial by Michael Hartl")
   end
   
   scenario "successful edit with friendly forwarding" do
